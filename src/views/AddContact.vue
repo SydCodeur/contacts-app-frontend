@@ -81,7 +81,7 @@ export default {
     components: {},
     data() {
         return {
-            baseUrl: "http://localhost:3000/api/v1",
+            baseUrl: window.baseurl,
             isLoading: false,
             newContact: {
                 firstName: "",

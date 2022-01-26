@@ -190,7 +190,7 @@ export default {
             errorMessage: "",
             successMessage: "",
             showEditModal: false,
-            baseUrl: "http://localhost:3000/api/v1",
+            baseUrl: window.baseurl,
             contacts: [],
             newContact: {
                 firstName: "",
@@ -211,6 +211,8 @@ export default {
     },
     mounted() {
         this.getContacts();
+        console.log("basurl",
+            window.baseurl);
     },
     methods: {
         initErrorMessage() {
@@ -258,7 +260,7 @@ export default {
             }
         },
         async deleteContact(contactId, firstName) {
-
+            this.initErrorMessage();
             if (window.confirm(`Voulez vous supprimer ${firstName}`)) {
                 console.log('id', contactId);
                 console.log('confirmation');
@@ -303,6 +305,7 @@ export default {
             }
         },
         deleteManyContacts() {
+            this.initErrorMessage();
             if (this.deleteIds.length != 0) {
                 if (window.confirm(`Voulez-vous supprimer les ${this.deleteIds.length} contacts selectionnés ?`)) {
                     console.log('Suppression multiple');
@@ -314,6 +317,8 @@ export default {
                     })
                         .then(response => {
                             console.log("response", response);
+                            this.successMessage = response.data.message
+                            this.deleteIds = [];
                             this.getContacts();
                         })
                         .catch(err => {
