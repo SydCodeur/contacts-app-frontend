@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
+import Login from "@/views/Login.vue";
+import Profile from "@/views/Profile.vue";
 
 import NotFound from "@/views/NotFound.vue";
 
@@ -10,10 +12,26 @@ import AddContact from "@/views/AddContact.vue";
 const routes = [
   {
     name: "Home",
-    path: "/",
+    path: "/contacts",
     component: Home,
     meta: {
       title: "Accueil",
+    },
+  },
+  {
+    name: "Profile",
+    path: "/profile",
+    component: Profile,
+    meta: {
+      title: "Mon profil",
+    },
+  },
+  {
+    name: "Login",
+    path: "/",
+    component: Login,
+    meta: {
+      title: "Authentification",
     },
   },
   {

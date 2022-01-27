@@ -94,6 +94,15 @@ export default {
             phone: "", //for test
         }
     },
+    mounted() {
+        if (this.$store.state.user.userId == -1) {
+            this.$router.push('/');
+            return;
+        } else {
+            this.token = this.$store.state.user.token;
+        }
+        this.getContacts();
+    },
     methods: {
         async saveContact() {
             this.initErrorMessage();

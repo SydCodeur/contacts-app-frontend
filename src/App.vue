@@ -12,7 +12,7 @@
   <!-- <router-link :to="{ name: 'Contact', params: { phone: '22899728988' } }">Contact</router-link>
   <button class="btn btn-info" @click="showContact('22890148968')">Contact suivant</button>-->
 
-  <div id="nav">
+  <div id="nav" v-if="isAuth">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand">
         <span style="font-weight: bold;">MyContacts</span>
@@ -31,8 +31,9 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav ml-auto">
-          <router-link to="/" class="nav-item nav-link">Mes contacts</router-link>
+          <router-link to="/contacts" class="nav-item nav-link">Mes contacts</router-link>
           <router-link to="/add-contact" class="nav-item nav-link">Ajouter un contact</router-link>
+          <router-link to="/profile" class="nav-item nav-link">Mon profil</router-link>
           <router-link to="/about" class="nav-item nav-link">À propos</router-link>
         </div>
       </div>
@@ -41,6 +42,26 @@
 
   <router-view />
 </template>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      isAuth: '',
+    }
+  },
+  mounted() {
+    this.isAuth = this.$store.state.user.userId == -1 ? false : true;
+    console.log('this.auth', this.isAuth);
+  },
+  methods: {
+    logout() {
+      console.log('Déconnexion');
+    }
+  }
+}
+</script>
 
 <style>
 #nav a {
@@ -51,6 +72,10 @@
 #nav a.router-link-exact-active {
   /* color: #42b983; */
   color: #4fc08d;
+}
+
+.logout-btn {
+  background: #fff;
 }
 </style>
 

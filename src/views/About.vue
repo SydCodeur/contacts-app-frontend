@@ -1,19 +1,34 @@
 <template>
     <div class="about-container">
         <div>
-            <img width="150" height="150" src="@/assets/logo.png" alt="logo" />
+            <div class="avatar-image">
+                <img width="150" height="150" src="@/assets/logo.png" alt="logo" />
+            </div>
             <br />
-            <br />
-            <h3>MyContacts</h3>
-           <div class="text-center version">Version 0.0.1</div>
+            <h3 class="text-center">MyContacts</h3>
+            <div class="text-center version">Version 0.0.1</div>
         </div>
     </div>
-    
 </template>
 
+<script>
+export default {
+    name: 'About',
+    mounted() {
+        if (this.$store.state.user.userId == -1) {
+            this.$router.push('/');
+            return;
+        }
+    }
+}
+</script>
+
 <style>
-.about-container,
-about-text {
+.avatar-image {
+    display: flex;
+    justify-content: center;
+}
+.about-container {
     display: flex;
     align-items: center;
     justify-content: center;

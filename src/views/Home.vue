@@ -206,13 +206,20 @@ export default {
             editedLastName: "",
             editedEmail: "",
             editedPhone: "",
-            editedId: ""
+            editedId: "",
+            //
+            token: "",
         };
     },
     mounted() {
+        if (this.$store.state.user.userId == -1) {
+            this.$router.push('/');
+            return;
+        } else {
+            this.token = this.$store.state.user.token;
+        }
         this.getContacts();
-        console.log("basurl",
-            window.baseurl);
+
     },
     methods: {
         initErrorMessage() {
@@ -222,12 +229,23 @@ export default {
         async getContacts() {
             this.isLoading = true;
             try {
-                const response = await axios.get(`${this.baseUrl}/contacts`);
+                const response = await axios.get(`${this.baseUrl}/contacts`, {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`
+                    }
+                });
                 this.isLoading = false;
                 this.contacts = response.data.contacts;
-            } catch (error) {
+            } catch (err) {
                 this.isLoading = false;
-                console.log('ERROR MESSAGE', error);
+                if (err.response.status == 401) {
+                    this.errorMessage = err.response.data.message;
+                    console.log('Erreur de validation : ', err.response.data.message);
+                } else {
+                    console.log('La création a échoué');
+                    this.errorMessage = "La récupération a échoué";
+
+                }
             }
         },
         async updateContact() {
