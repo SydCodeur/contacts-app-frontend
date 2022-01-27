@@ -12,7 +12,7 @@
   <!-- <router-link :to="{ name: 'Contact', params: { phone: '22899728988' } }">Contact</router-link>
   <button class="btn btn-info" @click="showContact('22890148968')">Contact suivant</button>-->
 
-  <div id="nav" v-if="isAuth">
+  <div id="nav">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand">
         <span style="font-weight: bold;">MyContacts</span>
@@ -52,8 +52,9 @@ export default {
     }
   },
   mounted() {
-    this.isAuth = this.$store.state.user.userId == -1 ? false : true;
-    console.log('this.auth', this.isAuth);
+    // let user = localStorage.getItem("user");
+    // this.isAuth = !user ? false : true;
+    // console.log('this.auth', this.isAuth);
   },
   methods: {
     logout() {

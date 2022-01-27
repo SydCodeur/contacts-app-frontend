@@ -100,8 +100,9 @@ export default {
             return;
         } else {
             this.token = this.$store.state.user.token;
+            console.log('this.token', this.token);
         }
-        this.getContacts();
+
     },
     methods: {
         async saveContact() {
@@ -113,6 +114,10 @@ export default {
                     lastName: this.newContact.lastName,
                     email: this.newContact.email,
                     phone: this.newContact.phone,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`
+                    }
                 });
                 console.log('response', response);
                 this.isLoading = false;

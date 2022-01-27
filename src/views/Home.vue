@@ -62,8 +62,8 @@
                                 </td>
                                 <td class="text-center">{{ i + 1 }}</td>
                                 <td class="text-center">
-                                    <div
-                                        v-if="i % 2 == 0"
+                                    <!-- <div
+                                        v-if="i + 1 % 2 == 0"
                                         style="background: #808080;"
                                         class="circle-avatar-with-letter"
                                     >{{ contact.firstName[0].toUpperCase() }}</div>
@@ -75,7 +75,7 @@
                                         {{
                                             contact.firstName[0].toUpperCase()
                                         }}
-                                    </div>
+                                    </div>-->
                                 </td>
                                 <td
                                     style="text-align: center;"
@@ -257,6 +257,10 @@ export default {
                     lastName: this.editedLastName,
                     email: this.editedEmail,
                     phone: this.editedPhone,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`
+                    }
                 });
                 this.editedId = "";
                 this.editedFirstName = "";
@@ -283,12 +287,17 @@ export default {
                 console.log('id', contactId);
                 console.log('confirmation');
                 try {
-                    const response = await axios.delete(`${this.baseUrl}/contact/${contactId}`);
+                    const response = await axios.delete(`${this.baseUrl}/contact/${contactId}`, {
+                        headers: {
+                            Authorization: `Bearer ${this.token}`
+                        }
+                    });
                     console.log('response', response);
                     this.successMessage = response.data.message
                     this.getContacts();
                 } catch (error) {
                     console.log('deleteContact catch error', error.message);
+                    this.errorMessage = "La suppression a échoué";
                 }
             }
 
@@ -332,6 +341,9 @@ export default {
                         method: "post",
                         url: `${this.baseUrl}/delete-many-contacts`,
                         data: { ids: this.deleteIds },
+                        headers: {
+                            Authorization: `Bearer ${this.token}`
+                        }
                     })
                         .then(response => {
                             console.log("response", response);
