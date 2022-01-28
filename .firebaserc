@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "my-contacts-kernel"
-  }
+    "default": "my-contacts-2022",
+    "my-contacts-2022": "my-contacts-2022"
+  },
+  "targets": {}
 }
