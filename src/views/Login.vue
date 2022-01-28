@@ -1,23 +1,18 @@
 <template>
     <div class="container">
-        <br />
+        <div class="login-margin-top"></div>
         <div class="row">
-            <div class="col-lg-4 offset-4">
-                <div class="login-margin-top"></div>
-                <h1 class="text-center" v-if="mode == 'login'">Connexion</h1>
-                <h1 class="text-center" v-else>Inscription</h1>
+            <div class="col-lg-6">
+                <h1 v-if="mode == 'login'">Connexion</h1>
+                <h1 v-else>Inscription</h1>
                 <form>
-                    <small
-                        v-if="mode == 'login'"
-                        id="emailHelp"
-                        class="form-text text-muted text-center"
-                    >
+                    <small v-if="mode == 'login'" id="emailHelp" class="form-text text-muted">
                         Vous n'avez pas de compte ?
                         <a class="btn" @click="switchToCreateAccount">
                             <span style="color : #4fc08d;">créer un compte</span>
                         </a>
                     </small>
-                    <small v-else id="emailHelp" class="form-text text-muted text-center">
+                    <small v-else id="emailHelp" class="form-text text-muted">
                         Vous avez déjà un compte ?
                         <a class="btn" @click="switchToLogin">
                             <span style="color : #4fc08d;">Connectez-vous</span>
@@ -64,26 +59,79 @@
                             id="password"
                             placeholder="Mot de passe"
                         />
+                        <small
+                            v-if="mode == 'create'"
+                            class="form-text text-muted"
+                        >Le mot de passe doit comporter au moins 6 caractères</small>
                     </div>
                 </form>
-                <div v-if="mode == 'login' && status == 'error_login'">
-                    <small class="form-text text-muted text-center">
-                        <span style="color: red;">Paramètres de connexion invalides</span>
-                    </small>
-                    <br />
+                <!-- Error Management for create account -->
+                <div v-if="mode == 'create'">
+                    <div v-if="status == 'EMAIL_EXISTS'">
+                        <small class="form-text text-muted text-center">
+                            <span style="color: red;">Cet email est déjà utilisé</span>
+                        </small>
+                        <br />
+                    </div>
+                    <div v-else-if="status == 'INVALID_EMAIL'">
+                        <small class="form-text text-muted text-center">
+                            <span style="color: red;">Cet email est invalide</span>
+                        </small>
+                        <br />
+                    </div>
+                    <div v-else-if="status == 'PASSWORD_MIN_LENGTH_ERROR'">
+                        <small class="form-text text-muted text-center">
+                            <span
+                                style="color: red;"
+                            >Le mot de passe doit comporter au moins 6 caractères</span>
+                        </small>
+                        <br />
+                    </div>
+                    <div v-else-if="status == 'FIRSTNAME_MIN_LENGTH_ERROR'">
+                        <small class="form-text text-muted text-center">
+                            <span style="color: red;">Le prénom doit comporter au moins 2 caractères</span>
+                        </small>
+                        <br />
+                    </div>
+                    <div v-else-if="status == 'LASTNAME_MIN_LENGTH_ERROR'">
+                        <small class="form-text text-muted text-center">
+                            <span style="color: red;">Le nom doit comporter au moins 2 caractères</span>
+                        </small>
+                        <br />
+                    </div>
+                    <div v-else-if="status == 'INTERNAL_ERROR'">
+                        <small class="form-text text-muted text-center">
+                            <span
+                                style="color: red;"
+                            >Une erreur s'est produite. Veuillez réessayer plus tard</span>
+                        </small>
+                        <br />
+                    </div>
                 </div>
-                <div v-if="mode == 'create' && status == 'error_create'">
-                    <small class="form-text text-muted text-center">
-                        <span style="color: red;">La création de compte a échoué</span>
-                    </small>
-                    <br />
+
+                <!-- End of Management -->
+
+                <div v-if="mode == 'login'">
+                    <div v-if="status == 'USER_NOT_FOUND'">
+                        <small class="form-text text-muted text-center">
+                            <span style="color: red;">Cet utilisateur est introuvable</span>
+                        </small>
+                        <br />
+                    </div>
+                    <div v-if="status == 'PASSWORD_INCORRECT'">
+                        <small class="form-text text-muted text-center">
+                            <span style="color: red;">Mot de passe incorrect</span>
+                        </small>
+                        <br />
+                    </div>
                 </div>
+
                 <span></span>
                 <button
                     v-if="mode == 'login'"
                     @click="login"
                     type="submit"
-                    class="btn btn-lg btn-block auth-btn"
+                    class="btn auth-btn"
                     :disabled="!validatedFields"
                 >
                     <span v-if="status == 'loading'">Chargement...</span>
@@ -94,7 +142,7 @@
                     @click="createAccount"
                     v-else
                     type="submit"
-                    class="btn btn-lg btn-block auth-btn"
+                    class="btn auth-btn"
                     :disabled="!validatedFields"
                 >
                     <span v-if="status == 'loading'">Chargement...</span>
@@ -184,7 +232,7 @@ export default {
 
 <style>
 .login-margin-top {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .auth-btn {
     background: #4fc08d;

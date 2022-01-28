@@ -3,6 +3,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "http://localhost:3000/api/v1",
+  // baseURL: "https://my-contacts-api-v1.herokuapp.com/api/v1",
 });
 
 let user = localStorage.getItem("user");
@@ -67,9 +68,16 @@ const store = createStore({
             commit("setStatus", "created");
             resolve(response);
           })
-          .catch((error) => {
-            commit("setStatus", "error_create");
-            reject(error);
+          .catch((err) => {
+            if (err.response.status == 422) {
+              // console.log("Store create account validation : ", err.response.data.message);
+              commit("setStatus", err.response.data.message);
+            } else {
+              // console.log("INTERNAL ERROR : ", err);
+              commit("setStatus", "INTERNAL_ERROR");
+            }
+
+            reject(err);
           });
       });
     },
@@ -83,10 +91,19 @@ const store = createStore({
             commit("logUser", response.data);
             resolve(response);
           })
-          .catch((error) => {
+          .catch((err) => {
             commit("setStatus", "error_login");
-            console.log("ERROR LOGIN");
-            reject(error);
+            if (err.response.status == 401) {
+              console.log(
+                "Store login validation : ",
+                err.response.data.message
+              );
+              commit("setStatus", err.response.data.message);
+            } else {
+              // console.log("INTERNAL ERROR : ", err);
+              commit("setStatus", "INTERNAL_ERROR");
+            }
+            reject(err);
           });
       });
     },

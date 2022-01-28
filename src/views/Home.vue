@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-responsive-lg table-bordered table-striped">
                         <thead>
                             <tr class="text-center text-light" bgcolor="#4fc08d">
                                 <th>
@@ -63,8 +63,8 @@
                                 </td>
                                 <td class="text-center">{{ i + 1 }}</td>
                                 <td class="text-center">
-                                    <!-- <div
-                                        v-if="i + 1 % 2 == 0"
+                                    <div
+                                        v-if="i % 2 == 0"
                                         style="background: #808080;"
                                         class="circle-avatar-with-letter"
                                     >{{ contact.firstName[0].toUpperCase() }}</div>
@@ -76,7 +76,7 @@
                                         {{
                                             contact.firstName[0].toUpperCase()
                                         }}
-                                    </div>-->
+                                    </div>
                                 </td>
                                 <td
                                     style="text-align: center;"
@@ -155,15 +155,19 @@
                                     v-model="editedEmail"
                                 />
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input
                                     type="tel"
                                     name="editedPhone"
                                     class="form-control"
                                     v-model="editedPhone"
                                 />
-                            </div>
+                            </div>-->
                         </form>
+                        <label>Numéro de téléphone</label>
+                        <vue-tel-input :value="editedPhone" @input="onInput"></vue-tel-input>
+
+                        <br />
                         <div class="row col-lg-3">
                             <div class="form-group">
                                 <button
@@ -228,6 +232,12 @@ export default {
 
     },
     methods: {
+        onInput(phone, phoneObject, input) {
+            console.log('input', input);
+            if (phoneObject?.formatted) {
+                this.editedPhone = phoneObject.formatted
+            }
+        },
         initErrorMessage() {
             this.successMessage = "";
             this.errorMessage = "";

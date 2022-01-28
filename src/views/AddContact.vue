@@ -44,7 +44,7 @@
                             v-model="newContact.email"
                         />
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input
                             type="tel"
                             name="phone"
@@ -52,10 +52,16 @@
                             placeholder="Numéro de téléphone"
                             v-model="newContact.phone"
                         />
-                    </div>
+                    </div>-->
                 </form>
+                <label>Numéro de téléphone</label>
+                <vue-tel-input
+                    placeholder="Saisir le numéro"
+                    :value="newContact.phone"
+                    @input="onInput"
+                ></vue-tel-input>
 
-                <h1>{{ phone }}</h1>
+                <br />
                 <div class="row">
                     <div class="col-lg-3" v-if="this.isLoading">
                         <div class="spinner-border text-info" role="status">
@@ -96,7 +102,7 @@ export default {
             },
             errorMessage: "",
             successMessage: "",
-            phone: "", //for test
+
         }
     },
     mounted() {
@@ -110,6 +116,12 @@ export default {
 
     },
     methods: {
+        onInput(phone, phoneObject, input) {
+            console.log('input', input);
+            if (phoneObject?.formatted) {
+                this.newContact.phone = phoneObject.formatted
+            }
+        },
         async saveContact() {
             this.initErrorMessage();
             this.isLoading = true;
