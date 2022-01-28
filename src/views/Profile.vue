@@ -1,4 +1,5 @@
 <template>
+    <NavBar />
     <div class="container profile-container">
         <div>
             <div class="avatar-image">
@@ -20,9 +21,11 @@
 <script>
 
 import { mapState } from 'vuex';
+import NavBar from '../components/NavBar.vue';
 
 export default {
     name: 'Profile',
+    components: { NavBar },
     mounted() {
         // console.log(this.$store.state.user);
         if (this.$store.state.user.userId == -1) {

@@ -1,4 +1,5 @@
 <template>
+    <NavBar />
     <div id="app">
         <div class="spinner-border text-info my-spinner" role="status" v-if="this.isLoading">
             <span class="sr-only">Loading...</span>
@@ -182,8 +183,13 @@
 <script>
 
 import axios from 'axios';
+import NavBar from '../components/NavBar.vue';
+
 export default {
     name: 'App',
+    components: {
+        NavBar
+    },
     data() {
         return {
             isLoading: false,

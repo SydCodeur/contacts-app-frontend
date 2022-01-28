@@ -1,4 +1,5 @@
 <template>
+    <NavBar />
     <div class="container">
         <div class="row mt-5">
             <div class="col-lg-6">
@@ -75,10 +76,14 @@
 <script>
 import axios from 'axios';
 
+import NavBar from '../components/NavBar.vue';
+
 
 export default {
     name: 'AddContact',
-    components: {},
+    components: {
+        NavBar
+    },
     data() {
         return {
             baseUrl: window.baseurl,

@@ -1,4 +1,5 @@
 <template>
+    <NavBar />
     <div class="about-container">
         <div>
             <div class="avatar-image">
@@ -12,8 +13,12 @@
 </template>
 
 <script>
+import NavBar from '../components/NavBar.vue';
 export default {
     name: 'About',
+    components: {
+        NavBar
+    },
     mounted() {
         if (this.$store.state.user.userId == -1) {
             this.$router.push('/');
