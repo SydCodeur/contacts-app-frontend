@@ -2,8 +2,8 @@ import { createStore } from "vuex";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
-  // baseURL: "https://my-contacts-api-v1.herokuapp.com/api/v1",
+  // baseURL: "http://localhost:3000/api/v1",
+  baseURL: "https://my-contacts-api-v1.herokuapp.com/api/v1",
 });
 
 let user = localStorage.getItem("user");

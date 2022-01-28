@@ -3,6 +3,12 @@
         <div class="login-margin-top"></div>
         <div class="row">
             <div class="col-lg-6">
+                <div v-if="mode == 'create'">
+                    <div
+                        class="alert alert-info"
+                        v-if="createAccountMessage"
+                    >{{ createAccountMessage }}</div>
+                </div>
                 <h1 v-if="mode == 'login'">Connexion</h1>
                 <h1 v-else>Inscription</h1>
                 <form>
@@ -26,7 +32,7 @@
                             class="form-control"
                             id="email"
                             aria-describedby="emailHelp"
-                            placeholder="Email"
+                            placeholder="Veuillez saisir votre email"
                         />
                     </div>
                     <div v-if="mode == 'create'" class="form-group">
@@ -36,7 +42,7 @@
                             type="text"
                             class="form-control"
                             id="firstname"
-                            placeholder="Prénoms"
+                            placeholder="Veuillez saisir votre prénom"
                         />
                     </div>
                     <div v-if="mode == 'create'" class="form-group">
@@ -46,7 +52,7 @@
                             type="text"
                             class="form-control"
                             id="lastName"
-                            placeholder="Nom"
+                            placeholder="Veuillez saisir votre nom"
                         />
                     </div>
 
@@ -57,7 +63,7 @@
                             type="password"
                             class="form-control"
                             id="password"
-                            placeholder="Mot de passe"
+                            placeholder="Veuillez saisir votre mot de passe"
                         />
                         <small
                             v-if="mode == 'create'"
@@ -165,6 +171,7 @@ export default {
             firstName: '',
             lastName: '',
             password: '',
+            createAccountMessage: '',
         }
     },
     mounted() {
@@ -198,15 +205,22 @@ export default {
         },
 
         createAccount() {
-            const retrievedThis = this;
+            // retrievedThis.login();
+            // const retrievedThis = this;
+            this.createAccountMessage = "";
             this.$store.dispatch('createAccount', {
                 email: this.email,
                 firstName: this.firstName,
                 lastName: this.lastName,
                 password: this.password,
             }).then(response => {
-                console.log("login response", response);
-                retrievedThis.login();
+                console.log("create account response", response);
+                this.email = "";
+                this.firstName = "";
+                this.lastName = "";
+                this.password = "";
+                this.createAccountMessage = "Compte crée avec succès. Veuillez-vous connecter";
+
             }).catch(error => {
                 console.log('login error', error)
             });

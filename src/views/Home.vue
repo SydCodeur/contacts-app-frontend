@@ -10,6 +10,15 @@
                 <div class="col-lg-6">
                     <h3 style="color: #4fc08d">Liste des contacts</h3>
                 </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4">
+                    <input
+                        class="form-control"
+                        type="text"
+                        v-model="search"
+                        placeholder="Rechercher..."
+                    />
+                </div>
             </div>
             <hr style="color: grey" />
             <div class="alert alert-danger" v-if="errorMessage">{{ errorMessage }}</div>
@@ -50,7 +59,7 @@
                         <tbody>
                             <tr
                                 class="text-center"
-                                v-for="(contact, i) in contacts"
+                                v-for="(contact, i) in filteredContacts"
                                 :key="contact._id"
                             >
                                 <td>
@@ -219,9 +228,11 @@ export default {
             editedId: "",
             //
             token: "",
+            search: "",
         };
     },
     mounted() {
+        console.log('window URL', window.baseurl);
         if (this.$store.state.user.userId == -1) {
             this.$router.push('/');
             return;
@@ -230,6 +241,17 @@ export default {
         }
         this.getContacts();
 
+    },
+    computed: {
+        filteredContacts() {
+            return this.contacts.filter(contact => {
+                return contact.firstName.toLowerCase().match(this.search.toLowerCase()) ||
+                    contact.lastName.toLowerCase().match(this.search.toLowerCase()) ||
+                    contact.phone.toLowerCase().match(this.search.toLowerCase()) ||
+                    contact.email.toLowerCase().match(this.search.toLowerCase());
+
+            });
+        }
     },
     methods: {
         onInput(phone, phoneObject, input) {

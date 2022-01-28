@@ -16,9 +16,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import router from "./router";
 
-window.baseurl = "http://localhost:3000/api/v1";
+// window.baseurl = "http://localhost:3000/api/v1";
 
-// window.baseurl = "https://my-contacts-api-v1.herokuapp.com/api/v1";
+window.baseurl = "https://my-contacts-api-v1.herokuapp.com/api/v1";
 
 createApp(App)
   .use(VueTelInput, VueTelInputOptions)
