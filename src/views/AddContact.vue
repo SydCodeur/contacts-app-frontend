@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-lg-6">
-                <h3 style="color: #4fc08d">Ajouter un contact</h3>
+                <h3 style="color: #4267b2">Ajouter un contact</h3>
             </div>
         </div>
         <div class="row mt-3">
@@ -163,11 +163,11 @@ export default {
 
 <style>
 .save-btn {
-    background: #4fc08d;
+    background: #4267b2;
     color: #fff;
 }
 .save-btn:hover {
-    background-color: #4caf50;
+    background-color: #4267b2;
     color: white;
 }
 </style>

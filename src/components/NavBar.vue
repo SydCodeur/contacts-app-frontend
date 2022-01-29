@@ -2,7 +2,7 @@
     <div id="nav">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand">
-                <span style="font-weight: bold;">MyContacts</span>
+                <span >MyContacts</span>
             </a>
             <button
                 class="navbar-toggler"

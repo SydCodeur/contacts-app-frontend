@@ -9,13 +9,13 @@
                     <small v-if="mode == 'login'" id="emailHelp" class="form-text text-muted">
                         Vous n'avez pas de compte ?
                         <a class="btn" @click="switchToCreateAccount">
-                            <span style="color : #4fc08d;">créer un compte</span>
+                            <span style="color : #4267b2;">créer un compte</span>
                         </a>
                     </small>
                     <small v-else id="emailHelp" class="form-text text-muted">
                         Vous avez déjà un compte ?
                         <a class="btn" @click="switchToLogin">
-                            <span style="color : #4fc08d;">Connectez-vous</span>
+                            <span style="color : #4267b2;">Connectez-vous</span>
                         </a>
                     </small>
 
@@ -249,11 +249,11 @@ export default {
 
 <style>
 .auth-btn {
-    background: #4fc08d;
+    background: #4267b2;
     color: #fff;
 }
 .auth-btn:hover {
-    background-color: #4caf50;
+    background-color: #4267b2;
     color: white;
 }
 

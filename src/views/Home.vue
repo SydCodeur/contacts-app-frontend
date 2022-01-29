@@ -8,7 +8,7 @@
         <div class="container" v-else>
             <div class="row mt-5">
                 <div class="col-lg-6">
-                    <h3 style="color: #4fc08d">Liste des contacts</h3>
+                    <h3 style="color: #4267b2">Liste des contacts</h3>
                 </div>
                 <div class="col-lg-2"></div>
                 <div class="col-lg-4">
@@ -16,11 +16,11 @@
                         class="form-control"
                         type="text"
                         v-model="search"
-                        placeholder="Rechercher..."
+                        placeholder="Recherche..."
                     />
                 </div>
             </div>
-            <hr style="color: grey" />
+            <hr style="border-top: 1px dashed #4267b2;" />
             <div class="alert alert-danger" v-if="errorMessage">{{ errorMessage }}</div>
             <div class="alert alert-success" v-if="successMessage">{{ successMessage }}</div>
             <!-- Delete Many Contacts -->
@@ -40,7 +40,7 @@
                 <div class="col-lg-12">
                     <table class="table table-responsive-lg table-bordered table-striped">
                         <thead>
-                            <tr class="text-center text-light" bgcolor="#4fc08d">
+                            <tr class="text-center">
                                 <th>
                                     <input
                                         type="checkbox"
@@ -436,11 +436,11 @@ export default {
 }
 
 .edit-btn {
-    background: #4fc08d;
+    background: #4267b2;
     color: #fff;
 }
 .edit-btn:hover {
-    background-color: #4caf50;
+    background-color: #4267b2;
     color: white;
 }
 </style>

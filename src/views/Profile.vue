@@ -61,7 +61,7 @@ export default {
     height: 90vh;
 }
 .email-text {
-    color: #4fc08d;
-    font-weight: bold;
+    color: #4267b2;
+    
 }
 </style>
